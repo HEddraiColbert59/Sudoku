@@ -1,0 +1,1 @@
+Caractéristiques d'un sudoku
