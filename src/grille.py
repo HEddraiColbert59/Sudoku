@@ -1,18 +1,12 @@
 class Grid:
     
     def __init__(self, puzzle = 81*'.'):
-        """
-            Constructeur par défaut
-            Arguments :
-                - puzzle : chaine de 81 caractères
-            Tests :
-            >>> Grid().puzzle == 81*'.', Grid(81*'2').puzzle == 81*'2'
-            (True, True)
-            >>> Grid().full, Grid(81*'2').full
-            (False, True)
-        """
+                        
         self.puzzle = puzzle
-            
+        if self.puzzle.count(".") > 0:
+            self.full = False
+        else:
+            self.full = True
         
     def loadFromFile(num):
         """
