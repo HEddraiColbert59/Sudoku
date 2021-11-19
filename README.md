@@ -1,9 +1,6 @@
 # Sudoku
 
-projet NSI 
-Hicham ED-Drai : chef de projet 
+projet NSI :
 
-projet NSI
 Hicham ED-Drai : Chef de projet
-
 Loic Leborgne : collaborateur
