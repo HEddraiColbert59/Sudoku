@@ -103,25 +103,7 @@ class Grid:
             self.cases[position].valid = True # Changement de valeur, on réinitialise sa validité
             self.verif(position)
         
-    def undo(self):
-        """
-            Méthode permettant d'annuler les coups
-            Dépile l'élément de la pile historique et fait le coup inverse
-            
-            Tests :
-            >>> S = Grid()
-            >>> S.setValue(0, 5)
-            >>> S.stack.stack == [(0, None, 5)]
-            True
-            >>> S.setValue(0, 8)
-            >>> S.stack.stack == [(0, None, 5), (0, 5, 8)]
-            True
-        """
-        if not self.stack.empty():
-            old = self.stack.pop() # position, oldValue, newValue
-            self.setValue(old[0], old[1])
-            self.stack.pop()
-            
+
     def verifLine(self, position):
         """
             position est la position de la case qui vient d'être modifiée
@@ -154,21 +136,6 @@ class Grid:
         """
         pass
             
-    def verifRegion(self, position):
-        """
-            position est la position de la case qui vient d'être modifiée
-            On teste toutes les cases de la ligne.
-            
-            Tests :
-            >>> S = Grid.loadFromFile(0)
-            >>> S.setValue(20, 3)
-            >>> S.cases[20].valid
-            False
-            >>> S.setValue(20, 1)
-            >>> S.cases[20].valid
-            True
-        """
-        pass
             
     def verif(self, position):
         """
