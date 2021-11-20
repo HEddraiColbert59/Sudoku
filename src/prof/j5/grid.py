@@ -3,11 +3,7 @@ from stack import Stack
 
 class Grid:
     
-<<<<<<< HEAD
-     def __init__(self, puzzle = 81*'.'):
-=======
     def __init__(self, puzzle = 81*'.'):
->>>>>>> ce27110f78a02688ae1a3277755b41c79408b687
         """
             Constructeur par défaut
             Arguments :
@@ -33,7 +29,7 @@ class Grid:
             >>> Grid.loadFromFile(0).puzzle[:10]
             '4.....8.5.'
         """
-        f = open("data/grids.sud", 'r')
+        f = open("../data/grids.sud", 'r')
         buff = f.readlines()
         f.close()
         return Grid(buff[num][:-1])
@@ -103,17 +99,10 @@ class Grid:
             self.stack.push((position, self.cases[position].value, value))
             self.cases[position].setValue(value)
             self.puzzleNow = self.casesToString()
-<<<<<<< HEAD
             
             self.cases[position].valid = True # Changement de valeur, on réinitialise sa validité
             self.verif(position)
         
-=======
-        else:
-            self.cases[position].valid = True # Changement de valeur, on réinitialise sa validité
-            self.verif(position)
-            
->>>>>>> ce27110f78a02688ae1a3277755b41c79408b687
     def undo(self):
         """
             Méthode permettant d'annuler les coups
@@ -132,14 +121,7 @@ class Grid:
             old = self.stack.pop() # position, oldValue, newValue
             self.setValue(old[0], old[1])
             self.stack.pop()
-<<<<<<< HEAD
-        
-        
             
-=======
-     
-
->>>>>>> ce27110f78a02688ae1a3277755b41c79408b687
     def verifLine(self, position):
         """
             position est la position de la case qui vient d'être modifiée
@@ -154,20 +136,13 @@ class Grid:
             >>> S.cases[1].valid
             True
         """
-<<<<<<< HEAD
-        pass
-            
-=======
-        c = [el.value for el in self.cases if el.line == self.cases[position].line and el.position != position]
-
-        if self.cases[position].value in c:
-            self.cases[position].valid = False
-            return False
-        else:
-            self.cases[position].valid = True
-            return True
+        case = self.cases[position]
         
->>>>>>> ce27110f78a02688ae1a3277755b41c79408b687
+        listCases = [c for c in self.cases if c.line == case.line and c != case]
+        
+        for c in listCases:
+            case.valid = case.valid and (c.value != case.value)
+            
     def verifRow(self, position):
         """
             position est la position de la case qui vient d'être modifiée
@@ -182,26 +157,13 @@ class Grid:
             >>> S.cases[9].valid
             True
         """
-<<<<<<< HEAD
-        for n in  self.self(position).line:
-            if self.cases(position).valid == self.cases(n).row.value:
-                self.cases(position).valid==True
-                return True
-            else:
-                self.cases(position).valid==False
-                return False
-            
-=======
-        c = [el.value for el in self.cases if el.row == self.cases[position].row and el.position != position]
+        case = self.cases[position]
         
-        if self.cases[position].value in c:
-            self.cases[position].valid = False
-            return False
-        else:
-            self.cases[position].valid = True
-            return True
-                    
->>>>>>> ce27110f78a02688ae1a3277755b41c79408b687
+        listCases = [c for c in self.cases if c.row == case.row and c != case]
+        
+        for c in listCases:
+            case.valid = case.valid and (c.value != case.value)
+            
     def verifRegion(self, position):
         """
             position est la position de la case qui vient d'être modifiée
@@ -216,43 +178,25 @@ class Grid:
             >>> S.cases[20].valid
             True
         """
-<<<<<<< HEAD
-        c=[n.value in n in n.region == self.cases[position].region]
-        for n in  self.self(position).line:
-            if self.cases(position).valid == self.cases(n).row.value:
-                self.cases(position).valid==True
-                return True
-            else:
-                self.cases(position).valid==False
-                return False
+        case = self.cases[position]
         
-    
-=======
-               
-        c = [el.value for el in self.cases if el.region == self.cases[position].region and el.position != position]
+        listCases = [c for c in self.cases if c.row == case.region and c != case]
         
-        if self.cases[position].value in c:
-            self.cases[position].valid = False
-            return False
-        else:
-            self.cases[position].valid = True
-            return True
-         
->>>>>>> ce27110f78a02688ae1a3277755b41c79408b687
+        for c in listCases:
+            case.valid = case.valid and (c.value != case.value)
+            
     def verif(self, position):
-        """
-            Méthode qui permet de vérifier la ligne, la colonne et la région.
-        """
-        a=self.verifLine(position)
-<<<<<<< HEAD
-        b=self.verifRow(postion)
-        c=self.verifRegion(position)
-=======
-        b=self.verifRow(position)
-        c=self.verifRegion(position)
+        self.verifLine(position)
+        self.verifRow(position)
+        self.verifRegion(position)
         
->>>>>>> ce27110f78a02688ae1a3277755b41c79408b687
-        return a and b and c
+    def checkWin(self):
+        """
+            Vérifie si une grille est gagnante ou pas.
+            Une grille est gagnante si elle est remplie et que toutes les cases
+            sont valides
+        """
+        pass
                     
     def __repr__(self):
         """
